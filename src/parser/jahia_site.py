@@ -830,6 +830,13 @@ class Site:
             # external links
             elif link.startswith("http://") or link.startswith("https://") or link.startswith("//"):
                 self.external_links += 1
+
+                for storage_site in ['my.epfl.ch', 'documents.epfl.ch']:
+
+                    if storage_site in link:
+                        with open('{}/{}'.format(storage_site, self.name), 'a') as f:
+                            f.write("{}\n".format(link))
+
             # data links
             elif link.startswith("data:"):
                 self.process_base64_image(tag, attribute, link)
