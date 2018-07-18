@@ -15,7 +15,8 @@ for wpConfig in `find ${ROOT_PATH} -name "wp-config.php"`
 do
     siteFolder=`echo ${wpConfig} | awk -F"/" '{print $(NF-1)}'`
     dbName=`grep "'DB_NAME'" ${wpConfig} | awk -F, '{print $2}' | awk -F\' '{print $2}'`
+    dbName=`grep "'DB_HOST'" ${wpConfig} | awk -F, '{print $2}' | awk -F\' '{print $2}'`
 
-    echo "${siteFolder},${dbName}"
+    echo "${siteFolder},${dbName},${dbHost}"
 
 done
