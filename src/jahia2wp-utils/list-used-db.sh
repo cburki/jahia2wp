@@ -17,6 +17,6 @@ do
     dbName=`grep "'DB_NAME'" ${wpConfig} | awk -F, '{print $2}' | awk -F\' '{print $2}'`
     dbName=`grep "'DB_HOST'" ${wpConfig} | awk -F, '{print $2}' | awk -F\' '{print $2}'`
 
-    echo "${siteFolder},${dbName},${dbHost}"
+    echo "${wpConfig},${dbName},${dbHost}"
 
 done
