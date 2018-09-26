@@ -21,7 +21,6 @@ function epfl_card_process_shortcode($atts = [], $content = '', $tag = '') {
     // shortcode parameters
     $atts = shortcode_atts(array(
             'title' => '',
-            'text'  => '',
             'link'  => '',
             'image' => '',
     ), $atts, $tag);
@@ -29,7 +28,6 @@ function epfl_card_process_shortcode($atts = [], $content = '', $tag = '') {
     // sanitize parameters
     $link  = $atts['link'];
     $title = sanitize_text_field( $atts['title'] );
-    $text  = sanitize_text_field( $atts['text'] );
     $image = sanitize_text_field( $atts['image'] );
     $image_url = wp_get_attachment_url( $image );
 
@@ -40,7 +38,7 @@ function epfl_card_process_shortcode($atts = [], $content = '', $tag = '') {
 
         try {
 
-           do_action("epfl_card_action", $title, $text, $link, $image_url);
+           do_action("epfl_card_action", $title, $content, $link, $image_url);
 
            return ob_get_contents();
 
