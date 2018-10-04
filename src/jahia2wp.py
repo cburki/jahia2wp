@@ -921,6 +921,9 @@ def update_unit_id(path, **kwargs):
 
         if site_details.valid == settings.WP_SITE_INSTALL_OK:
             unit_name = Utils.run_command("wp option get 'plugin:epfl_accred:unit' --path={}".format(site_details.path))
+            
+            if unit_name == "":
+                continue
 
             try:
                 logging.info("Updating %s...", site_details.url)
