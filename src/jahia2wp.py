@@ -926,8 +926,6 @@ def update_unit_id(path, **kwargs):
                 logging.info("Updating %s...", site_details.url)
                 unit_id = get_unit_id(unit_name)
 
-                logging.info("%s = %s...", unit_name, unit_id)
-
                 Utils.run_command("wp option update 'plugin:epfl_accred:unit_id' {} --path={}".format(unit_id, site_details.path))
             except Exception as e:
                 logging.error("Unit ID not found for %s (%s)", unit_name, str(e))
