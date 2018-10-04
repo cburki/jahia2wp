@@ -923,9 +923,10 @@ def update_unit_id(path, **kwargs):
             unit_name = Utils.run_command("wp option get 'plugin:epfl_accred:unit' --path={}".format(site_details.path))
 
             try:
+                logging.info("Updating %s...", site_details.url)
                 unit_id = get_unit_id(unit_name)
 
-                logging.info("Updating %s (%s = %s)...", site_details.url, unit_name, unit_id)
+                logging.info("%s = %s...", unit_name, unit_id)
 
                 Utils.run_command("wp option update 'plugin:epfl_accred:unit_id' {} --path={}".format(unit_id, site_details.path))
             except Exception as e:
