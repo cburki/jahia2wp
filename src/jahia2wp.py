@@ -920,8 +920,12 @@ def update_unit_id(path, **kwargs):
     for site_details in WPConfig.inventory(path):
 
         if site_details.valid == settings.WP_SITE_INSTALL_OK:
-            unit_name = Utils.run_command("wp option get 'plugin:epfl_accred:unit' --path={}".format(site_details.path))
-            
+            try:
+                unit_name = Utils.run_command("wp option get 'plugin:epfl_accred:unit' --path={}".format(site_details.path))
+            except Exception as e:
+                logging.error("Cannot get info for %s", site_details.path)
+                continue
+
             if unit_name == "":
                 continue
 
