@@ -41,6 +41,7 @@ Usage:
   jahia2wp.py veritas               <csv_file>                      [--debug | --quiet]
   jahia2wp.py fan-global-sitemap    <csv_file> <wp_path>            [--debug | --quiet]
   jahia2wp.py inventory             <path>                          [--debug | --quiet]
+  jahia2wp.py update-unit-id        <path>                          [--debug | --quiet]
   jahia2wp.py shortcode-list        <path> [--out-csv=<out_csv>]    [--debug | --quiet]
   jahia2wp.py shortcode-details     <path> <shortcode>              [--debug | --quiet]
     [--out-csv=<out_csv>]
@@ -913,6 +914,23 @@ def shortcode_details(path, shortcode, out_csv=None, **kwargs):
         print(details)
 
     logging.info("Shortcodes details done!")
+
+@dispatch.on('update-unit-id')
+def update_unit_id(path, **kwargs):
+    for site_details in WPConfig.inventory(path):
+
+        if site_details.valid == settings.WP_SITE_INSTALL_OK:
+            unit_name = Utils.run_command("wp option get 'plugin:epfl_accred:unit' --path={}".format(site_details.path))
+
+            try:
+                unit_id = get_unit_id(unit_name)
+
+                logging.info("Updating %s (%s = %s)...", site_details.url, unit_name, unit_id)
+
+                Utils.run_command("wp option update 'plugin:epfl_accred:unit_id' {} --path={}".format(unit_id, site_details.path))
+            except Exception as e:
+                logging.error("Unit ID not found for %s (%s)", unit_name, str(e))
+                pass
 
 
 @dispatch.on('shortcode-list')
