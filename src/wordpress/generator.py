@@ -274,7 +274,9 @@ class WPGenerator:
         extra_options = "--extra-php <<PHP \n" \
             "if (isset( \$_SERVER['HTTP_X_FORWARDED_PROTO'] ) && \$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'){\n" \
             "\$_SERVER['HTTPS']='on';} \n" \
-            "define('ALLOW_UNFILTERED_UPLOADS', true);"
+            "define('ALLOW_UNFILTERED_UPLOADS', true); \n" \
+            "define('WP_DEBUG', TRUE);\n"   \
+            "define('WP_DEBUG_LOG', TRUE);"
         if not self.run_wp_cli(command.format(self), extra_options=extra_options):
             logging.error("%s - could not create config", repr(self))
             return False
