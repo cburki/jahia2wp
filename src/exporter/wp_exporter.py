@@ -308,14 +308,13 @@ class WPExporter:
                 wp_media = self.wp.post_media(data=wp_media_info, files=files)
                 return wp_media
             except Exception as e:
-                logging.error("Exception: (%s) = %s", e.errno, e.strerror)
+                #logging.error("Exception: (%s) = %s", e.errno, e.strerror)
                 if try_no < settings.WP_CLI_AND_API_NB_TRIES-1:
-                    logging.error("%s - WP export - media failed (%s). Retry %s in %s sec... : %s",
+                    logging.error("%s - WP export - media failed (%s). Retry %s in %s sec... ",
                                   self.site.name,
                                   media.name,
                                   try_no+1,
-                                  settings.WP_CLI_AND_API_NB_SEC_BETWEEN_TRIES,
-                                  e)
+                                  settings.WP_CLI_AND_API_NB_SEC_BETWEEN_TRIES)
                     time.sleep(settings.WP_CLI_AND_API_NB_SEC_BETWEEN_TRIES)
                     pass
                 else:
