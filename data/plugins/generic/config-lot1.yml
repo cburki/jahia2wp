@@ -1,4 +1,5 @@
 plugins:
-  - name: simple-sitemap
+  - name: wp-rest-api-log
     config: !include simple-sitemap/v1/config-plugin.yml
- 
+  - name: polylang
+    config: !include polylang/v1/config-plugin.yml
